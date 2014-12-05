@@ -1,0 +1,32 @@
+{
+  "name": "avalanche",
+  "version": "1.0.0",
+  "description": "Streaming SVM trainer that uses stochastic gradient descent",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ben-ng/avalanche.git"
+  },
+  "keywords": [
+    "stochastic",
+    "gradient",
+    "descent",
+    "svm",
+    "support",
+    "vector",
+    "machine",
+    "learning",
+    "ai",
+    "artificial",
+    "intelligence"
+  ],
+  "author": "Ben Ng <me@benng.me>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ben-ng/avalanche/issues"
+  },
+  "homepage": "https://github.com/ben-ng/avalanche"
+}
