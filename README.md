@@ -24,7 +24,7 @@ Accuracy rates of around 99% can be achieved once parameters are tuned for your 
 
 An example run with 100 epochs on [the University of Wisconsin's breast cancer data](https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/).
 
-![Accuracy v Epoch](https://cldup.com/-M7u_m5Q08-3000x3000.jpeg)
+![Accuracy v Epoch](https://cldup.com/Z7AdIowe9V.png)
 
 ## Training Options
 
