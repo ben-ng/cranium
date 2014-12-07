@@ -1,12 +1,12 @@
-avalanche
+cranium
 =========
 
-[![Build Status](https://travis-ci.org/ben-ng/avalanche.svg?branch=master)](https://travis-ci.org/ben-ng/avalanche)
+[![Build Status](https://travis-ci.org/ben-ng/cranium.svg?branch=master)](https://travis-ci.org/ben-ng/cranium)
 
 Machine learning with streams.
 
 ```js
-var train = require('avalanche').train
+var train = require('cranium').train
   , opts = {
             features: ['attr1', 'attr2']
           , classAttribute: 'class'

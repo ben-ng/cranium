@@ -1,6 +1,6 @@
 {
-  "name": "avalanche",
-  "version": "2.0.0",
+  "name": "cranium",
+  "version": "1.0.0",
   "description": "Streaming SVM trainer that uses stochastic gradient descent",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ben-ng/avalanche.git"
+    "url": "https://github.com/ben-ng/cranium.git"
   },
   "keywords": [
     "stochastic",
@@ -26,9 +26,9 @@
   "author": "Ben Ng <me@benng.me>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ben-ng/avalanche/issues"
+    "url": "https://github.com/ben-ng/cranium/issues"
   },
-  "homepage": "https://github.com/ben-ng/avalanche",
+  "homepage": "https://github.com/ben-ng/cranium",
   "dependencies": {
     "csv-parser": "^1.4.6",
     "merge-stream": "^0.1.6",
