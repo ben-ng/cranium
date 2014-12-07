@@ -67,6 +67,10 @@ Default `0.4`. The percentage of instances to use for each epoch.
 
 Default `0.3`. The percentage of instances in each epoch to leave out. These instances are fed into the test stream passed to `eachEpoch`.
 
+## Under The Hood
+
+This uses stochastic gradient descent to train a support vector machine.
+
 ## License
 The MIT License (MIT)
 
