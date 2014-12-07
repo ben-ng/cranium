@@ -1,6 +1,66 @@
 avalanche
 =========
 
-Streaming SVM trainer that uses stochastic gradient descent
+Machine learning with streams.
 
-I haven't thought very hard about how I want to organize this stuff as modules, so give me a break. I'm thinking that I should focus on writing simple code and use this as a teaching tool.
+```js
+var train = require('avalanche').train
+  , opts = {
+            features: ['attr1', 'attr2']
+          , classAttribute: 'class'
+          }
+
+train('input.csv', opts, function (err, machine) {
+  if(machine.predict({attr1: 5, attr2: 2}) > 0)
+    console.log('true')
+  else
+    console.log('false')
+})
+```
+
+Accuracy rates of around 99% can be achieved once parameters are tuned for your data.
+
+An example run with 100 epochs on [the University of Wisconsin's breast cancer data](https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/).
+
+![Accuracy v Epoch](https://cldup.com/-M7u_m5Q08-3000x3000.jpeg)
+
+## Training Options
+
+#### train.opts.features
+
+**Required** An array of strings. Strings should be the headers of columns in the csv that should be used as features.
+
+#### train.opts.classAttribute
+
+**Required** A string, the header of the column to use as the class. Only binary classification is supported right now, so valid class attributes are `true` and `false`.
+
+#### train.opts.regularizer
+
+Default `0.001`. How hard to try to fit the data. Passed to the SVM.
+
+#### train.opts.stepLength
+
+Default `0.01`. The learning rate. Passed to the SVM.
+
+#### train.opts.eachEpoch
+
+Default no-op.
+
+`function eachEpoch (epoch, svm, testStream, cb) {}`
+
+ * **epoch** - An integer, the current epoch
+ * **svm** - The SVM object
+ * **testStream** - A readable stream of instances
+ * **cb** - Call when done to continue training
+
+#### train.opts.epochs
+
+Default `1000`. How many epochs to train for.
+
+#### train.opts.stepPercentage
+
+Default `0.4`. The percentage of instances to use for each epoch.
+
+#### train.opts.testPercentage
+
+Default `0.3`. The percentage of instances in each epoch to leave out. These instances are fed into the test stream passed to `eachEpoch`.

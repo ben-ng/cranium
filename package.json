@@ -4,7 +4,7 @@
   "description": "Streaming SVM trainer that uses stochastic gradient descent",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "node test/test"
   },
   "repository": {
     "type": "git",
@@ -28,5 +28,14 @@
   "bugs": {
     "url": "https://github.com/ben-ng/avalanche/issues"
   },
-  "homepage": "https://github.com/ben-ng/avalanche"
+  "homepage": "https://github.com/ben-ng/avalanche",
+  "dependencies": {
+    "csv-parser": "^1.4.6",
+    "merge-stream": "^0.1.6",
+    "shuffle-stream": "^1.0.1",
+    "tape": "^3.0.3"
+  },
+  "devDependencies": {
+    "concat-stream": "^1.4.7"
+  }
 }
