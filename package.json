@@ -1,6 +1,6 @@
 {
   "name": "cranium",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Streaming SVM trainer that uses stochastic gradient descent",
   "main": "lib",
   "scripts": {
