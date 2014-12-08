@@ -26,7 +26,17 @@ An example run with 100 epochs on [the University of Wisconsin's breast cancer d
 
 ![Accuracy v Epoch](https://cldup.com/Z7AdIowe9V.png)
 
-## Training Options
+## Training
+
+#### train
+
+The train function creates a support vector machine and trains it on your data using stochastic gradient descent.
+
+`function train (input, opts, cb) {}`
+
+ * **input** - Either a CSV file's path, or a function that returns an instance stream
+ * **opts** - An object, options are documented below
+ * **cb** - A callback with signature `function cb (err, svm)`
 
 #### train.opts.features
 
@@ -39,6 +49,10 @@ An example run with 100 epochs on [the University of Wisconsin's breast cancer d
 #### train.opts.regularizer
 
 Default `0.001`. How hard to try to fit the data. Passed to the SVM.
+
+#### train.opts.buffer
+
+Default `false`. Set to true if your data is small enough to keep entirely in memory, and training will be sped up by about 40%.
 
 #### train.opts.stepLength
 
@@ -67,9 +81,27 @@ Default `0.4`. The percentage of instances to use for each epoch.
 
 Default `0.3`. The percentage of instances in each epoch to leave out. These instances are fed into the test stream passed to `eachEpoch`.
 
-## Under The Hood
+## SVM
 
-This uses stochastic gradient descent to train a support vector machine.
+The SVM object is a support vector machine.
+
+#### SVM.predict
+
+`function predict (instance) {}`
+
+Instance is an object with the same features and classAttribute as the training data. Predict returns a float representing the output of the SVM. Values greater than zero are truthy, while values smaller than zero are falsey. The magnitude of the return value is the confidence of the prediction.
+
+#### SVM.cost
+
+`function cost () {}`
+
+Returns a transform stream that accepts a stream of instances and outputs a single float. The float is the result of the cost function on the input.
+
+#### SVM.accuracy
+
+`function cost () {}`
+
+Returns a transform stream that accepts a stream of instances and outputs a single float between zero and one. The float is the percentage of instances that were correctly classified.
 
 ## License
 The MIT License (MIT)

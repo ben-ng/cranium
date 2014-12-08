@@ -5,6 +5,7 @@ var mergeStream = require('merge-stream')
   , through = require('through2')
   , SVM = require('./svm')
   , Readable = require('stream').Readable
+  , bufferedStream = require('./bufferedStream')
 
 // Stops a stream from ending
 function neverending (stream, cb) {
@@ -20,7 +21,7 @@ function neverending (stream, cb) {
   return stream
 }
 
-function train(filename, opts, cb) {
+function train(input, opts, cb) {
   opts = opts || {}
 
   var epoch = 0
@@ -76,12 +77,25 @@ function train(filename, opts, cb) {
             this.push(chunk)
           }
         }
-        cb()
+
+        // Needed to prevent a recursive nextTick
+        if(opts.buffer) {
+          setImmediate(cb)
+        }
+        else {
+          cb()
+        }
       })
 
-      stream = fs.createReadStream(filename).pipe(csv())
-                                            .pipe(shuffle(shuffleOpts))
-                                            .pipe(splitStream)
+      if(typeof input == 'function') {
+        stream = input()
+      }
+      else {
+        stream = fs.createReadStream(input).pipe(csv())
+      }
+
+      stream = stream.pipe(shuffle(shuffleOpts))
+                     .pipe(splitStream)
 
       // Prevent the stream from ending th merge stream
       merge.add(neverending(stream, function () {
@@ -101,7 +115,18 @@ function train(filename, opts, cb) {
     }
   }
 
-  _train()
+  if(opts.buffer) {
+    bufferedStream(input, function (err, factory) {
+      if(err)
+        throw err
+
+      input = factory
+      _train()
+    })
+  }
+  else {
+    _train()
+  }
 }
 
 module.exports = train
