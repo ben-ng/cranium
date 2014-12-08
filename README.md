@@ -22,7 +22,7 @@ train('input.csv', opts, function (err, machine) {
 
 Accuracy rates of around 99% can be achieved once parameters are tuned for your data.
 
-An example run with 100 epochs on [the University of Wisconsin's breast cancer data](https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/).
+An example run with 1000 epochs on [the University of Wisconsin's breast cancer data](https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/).
 
 ![Accuracy v Epoch](https://cldup.com/lrBkCSoC5V-3000x3000.png)
 
