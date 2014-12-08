@@ -24,7 +24,15 @@ Accuracy rates of around 99% can be achieved once parameters are tuned for your 
 
 An example run with 100 epochs on [the University of Wisconsin's breast cancer data](https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/).
 
-![Accuracy v Epoch](https://cldup.com/Z7AdIowe9V.png)
+![Accuracy v Epoch](https://cldup.com/lrBkCSoC5V-3000x3000.png)
+
+## Tradeoffs
+
+Plenty of options for machine learning exist if your dataset can fit in memory. I recommend my Matt Rajca's [LearnKit](https://github.com/mattrajca/LearnKit), or [Weka](http://www.cs.waikato.ac.nz/ml/weka) if you like having a GUI.
+
+The amount of data you need to build a good classifier increases with the number of features you have, so out of memory errors become a problem when dealing with thousands of features. For example, Weka fails to perform logistic regression with more than a couple thousand features on a 5mb dataset. Cranium never assumes that your instances can fit in memory, so you can use it on terabytes of data.
+
+Cranium works with node streams, so you have a lot of flexibility with your input. Using streams sacrifies speed for memory efficiency -- Cranium uses a constant amount of memory that is typically below 100mb. The speed penalty is significant: Cranium runs about 500x slower than LearnKit. If your dataset can fit in memory, Cranium is probably not right for you.
 
 ## Training
 
@@ -56,7 +64,7 @@ Default `false`. Set to true if your data is small enough to keep entirely in me
 
 #### train.opts.stepLength
 
-Default `0.01`. The learning rate. Passed to the SVM.
+Default `0.01`. The learning rate. If a float, will be held constant. If a function, should have the signature `function stepLength (epoch) {}` where `epoch` is an integer, the current epoch. It should return a float, which will be used as the step length for that epoch. You can use this to decay the step length as time goes on.
 
 #### train.opts.eachEpoch
 
@@ -102,14 +110,6 @@ Returns a transform stream that accepts a stream of instances and outputs a sing
 `function cost () {}`
 
 Returns a transform stream that accepts a stream of instances and outputs a single float between zero and one. The float is the percentage of instances that were correctly classified.
-
-## Intent
-
-Plenty of options for machine learning exist if your dataset can fit in memory. I recommend my Matt Rajca's [LearnKit](https://github.com/mattrajca/LearnKit), or [Weka](http://www.cs.waikato.ac.nz/ml/weka) if you like having a GUI.
-
-The amount of data you need to build a good classifier increases with the number of features you have, so out of memory errors become a problem when dealing with thousands of features. For example, Weka fails to perform logistic regression with more than a couple thousand features on a 5mb dataset. Cranium never assumes that your instances can fit in memory, so you can use it on terabytes of data.
-
-Cranium works with node streams, so you have a lot of flexibility with your input. Using streams sacrifies speed for memory efficiency -- Cranium uses a constant amount of memory that is typically below 100mb.
 
 ## License
 The MIT License (MIT)

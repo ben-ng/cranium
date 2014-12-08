@@ -27,9 +27,15 @@ function SVM (features, classAttribute, opts) {
   this.features = features
   this.classAttribute = classAttribute
   this.regularizer = parseFloat(opts.regularizer || 0.001)
-  this.stepLength = parseFloat(opts.stepLength || 0.01)
   this.slope = new Array(dimensions)
   this.intercept = 0.0
+
+  if(typeof opts.stepLength == 'function') {
+    this.stepLengthFunction = opts.stepLength
+  }
+  else {
+    this.stepLength = opts.stepLength || 0.001
+  }
 
   functionRows.push(this.classAttribute + ': (example[\'' + classAttribute + '\'] == \'true\' ? 1 : -1)')
 
@@ -51,7 +57,12 @@ SVM.prototype._write = function _write (chunk, enc, cb) {
   cb()
 }
 
-SVM.prototype.update = function update (example, stepLength) {
+SVM.prototype.setEpoch = function setEpoch (epoch) {
+  if(this.stepLengthFunction)
+    this.stepLength = this.stepLengthFunction(epoch)
+}
+
+SVM.prototype.update = function update (example) {
   example = this._parseExample(example)
 
   var label = example[this.classAttribute]
@@ -60,18 +71,16 @@ SVM.prototype.update = function update (example, stepLength) {
     , i=0
     , ii=this.features.length
 
-  stepLength = stepLength || this.stepLength
-
   if(agreement >= 1.0) {
     for(; i<ii; ++i)
-      this.slope[i] -= stepLength * (this.regularizer * this.slope[i])
+      this.slope[i] -= this.stepLength * (this.regularizer * this.slope[i])
   }
   else {
     for(; i<ii; ++i) {
-      this.slope[i] -= stepLength * (this.regularizer * this.slope[i] - label * example[this.features[i]])
+      this.slope[i] -= this.stepLength * (this.regularizer * this.slope[i] - label * example[this.features[i]])
     }
 
-    this.intercept -= stepLength * -label
+    this.intercept -= this.stepLength * -label
   }
 }
 

@@ -50,6 +50,8 @@ function train(input, opts, cb) {
   function _train() {
     epoch++
 
+    machine.setEpoch(epoch)
+
     if(epoch > epochs) {
       // End the merge stream
       merge.push(null)
