@@ -28,7 +28,7 @@ An example run with 1000 epochs on [the University of Wisconsin's breast cancer 
 
 ## Tradeoffs
 
-Plenty of options for machine learning exist if your dataset can fit in memory. I recommend my Matt Rajca's [LearnKit](https://github.com/mattrajca/LearnKit), or [Weka](http://www.cs.waikato.ac.nz/ml/weka) if you like having a GUI.
+Plenty of options for machine learning exist if your dataset can fit in memory. I recommend my friend Matt Rajca's [LearnKit](https://github.com/mattrajca/LearnKit), or [Weka](http://www.cs.waikato.ac.nz/ml/weka) if you like having a GUI.
 
 The amount of data you need to build a good classifier increases with the number of features you have, so out of memory errors become a problem when dealing with thousands of features. For example, Weka fails to perform logistic regression with more than a couple thousand features on a 5mb dataset. Cranium never assumes that your instances can fit in memory, so you can use it on terabytes of data.
 
