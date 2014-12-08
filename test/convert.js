@@ -1,3 +1,6 @@
+/**
+* Converts the raw data into a cranium compatible csv
+*/
 var csv = require('csv-parser')
   , cws = require('csv-write-stream')
   , fs = require('fs')

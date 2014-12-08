@@ -107,7 +107,7 @@ Returns a transform stream that accepts a stream of instances and outputs a sing
 
 #### SVM.accuracy
 
-`function cost () {}`
+`function accuracy () {}`
 
 Returns a transform stream that accepts a stream of instances and outputs a single float between zero and one. The float is the percentage of instances that were correctly classified.
 
