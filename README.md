@@ -52,7 +52,7 @@ Default `0.001`. How hard to try to fit the data. Passed to the SVM.
 
 #### train.opts.buffer
 
-Default `false`. Set to true if your data is small enough to keep entirely in memory, and training will be sped up by about 40%.
+Default `false`. Set to true if your data is small enough to keep entirely in memory, and training will be sped up by about 40%. If this option is true, the `input` option to train must be a filename.
 
 #### train.opts.stepLength
 
@@ -102,6 +102,14 @@ Returns a transform stream that accepts a stream of instances and outputs a sing
 `function cost () {}`
 
 Returns a transform stream that accepts a stream of instances and outputs a single float between zero and one. The float is the percentage of instances that were correctly classified.
+
+## Intent
+
+Plenty of options for machine learning exist if your dataset can fit in memory. I recommend my Matt Rajca's [LearnKit](https://github.com/mattrajca/LearnKit), or [Weka](http://www.cs.waikato.ac.nz/ml/weka) if you like having a GUI.
+
+The amount of data you need to build a good classifier increases with the number of features you have, so out of memory errors become a problem when dealing with thousands of features. For example, Weka fails to perform logistic regression with more than a couple thousand features on a 5mb dataset. Cranium never assumes that your instances can fit in memory, so you can use it on terabytes of data.
+
+Cranium works with node streams, so you have a lot of flexibility with your input. Using streams sacrifies speed for memory efficiency -- Cranium uses a constant amount of memory that is typically below 100mb.
 
 ## License
 The MIT License (MIT)
